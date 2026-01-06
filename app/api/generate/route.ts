@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { chromium } from 'playwright-core';
-import chromiumPkg from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 
 interface GenerateRequest {
   imageUrl: string;
@@ -63,46 +63,40 @@ export async function POST(request: NextRequest) {
 
     const previewUrl = `${baseUrl}/preview?${params.toString()}`;
 
-    // Configure Chromium for serverless (Vercel/Lambda)
-    chromiumPkg.setGraphicsMode = false;
-
-    // Launch browser
-    const browser = await chromium.launch({
-      args: chromiumPkg.args,
-      executablePath: await chromiumPkg.executablePath(),
+    // Launch browser with serverless Chromium
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
       headless: true,
     });
 
-    const context = await browser.newContext({
-      viewport: null,
-    });
-
-    const page = await context.newPage();
-
-    // Navigate to preview page
-    await page.goto(previewUrl, {
-      waitUntil: 'networkidle',
-      timeout: 30000,
-    });
-
-    // Wait for fonts to load
-    await page.waitForTimeout(1000);
+    const page = await browser.newPage();
 
     // Get dimensions
     const dimensions = PRESET_DIMENSIONS[body.preset || 'iphone'];
     const resolution = body.resolution || 2;
 
+    // Set viewport to match preset dimensions
+    await page.setViewport({
+      width: dimensions.width,
+      height: dimensions.height,
+      deviceScaleFactor: resolution,
+    });
+
+    // Navigate to preview page
+    await page.goto(previewUrl, {
+      waitUntil: 'networkidle0',
+      timeout: 30000,
+    });
+
+    // Wait for fonts to load
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     // Capture screenshot
     const screenshot = await page.screenshot({
-      clip: {
-        x: 0,
-        y: 0,
-        width: dimensions.width,
-        height: dimensions.height,
-      },
       type: body.format === 'jpg' ? 'jpeg' : 'png',
       quality: body.format === 'jpg' ? 95 : undefined,
-      scale: resolution === 1 ? 'css' : 'device',
+      encoding: 'binary',
     });
 
     await browser.close();
@@ -111,7 +105,7 @@ export async function POST(request: NextRequest) {
     const contentType = body.format === 'jpg' ? 'image/jpeg' : 'image/png';
     const filename = `swipe67-mockup-${Date.now()}.${body.format}`;
 
-    return new NextResponse(new Uint8Array(screenshot), {
+    return new NextResponse(new Uint8Array(screenshot as Buffer), {
       status: 200,
       headers: {
         'Content-Type': contentType,
