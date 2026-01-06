@@ -3,7 +3,7 @@
 import { actionBar } from '@/lib/design-tokens';
 
 export default function ActionBar() {
-  const { height, paddingX, deleteButton, keepButton, centerButtons } = actionBar;
+  const { height, paddingX, centerButtons } = actionBar;
 
   return (
     <div
@@ -15,16 +15,31 @@ export default function ActionBar() {
         bottom: '4%',
       }}
     >
-      {/* DELETE Button */}
+      {/* DELETE Button (X Icon) */}
       <div
-        className="font-bold"
+        className="flex items-center justify-center"
         style={{
-          fontFamily: deleteButton.fontFamily,
-          fontSize: `${deleteButton.fontSize}px`,
-          color: deleteButton.color,
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          backgroundColor: '#A683F0', // Purple/pink
         }}
       >
-        {deleteButton.text}
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 15L35 35M15 35L35 15"
+            stroke="white"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </div>
 
       {/* Center Icons (Share & Bookmark) */}
@@ -34,6 +49,30 @@ export default function ActionBar() {
           gap: `${centerButtons.gap}px`,
         }}
       >
+        {/* Undo/Rotate Icon */}
+        <svg
+          width="36"
+          height="36"
+          viewBox="0 0 36 36"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 14H20C24.4183 14 28 17.5817 28 22C28 26.4183 24.4183 30 20 30C15.5817 30 12 26.4183 12 22"
+            stroke="#888888"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M12 10L8 14L12 18"
+            stroke="#888888"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+
         {/* Share Icon */}
         <svg
           width={centerButtons.shareIcon.width}
@@ -76,16 +115,28 @@ export default function ActionBar() {
         </svg>
       </div>
 
-      {/* KEEP Button */}
+      {/* KEEP Button (Heart Icon) */}
       <div
-        className="font-bold"
+        className="flex items-center justify-center"
         style={{
-          fontFamily: keepButton.fontFamily,
-          fontSize: `${keepButton.fontSize}px`,
-          color: keepButton.color,
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          backgroundColor: '#7EF5B1', // Green
         }}
       >
-        {keepButton.text}
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M25 40L21.5 36.85C13 29.1 7.5 24.1 7.5 17.75C7.5 12.75 11.5 8.75 16.5 8.75C19.44 8.75 22.26 10.13 24 12.26C25.74 10.13 28.56 8.75 31.5 8.75C36.5 8.75 40.5 12.75 40.5 17.75C40.5 24.1 35 29.1 26.5 36.85L25 40Z"
+            fill="white"
+          />
+        </svg>
       </div>
     </div>
   );

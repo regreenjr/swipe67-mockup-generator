@@ -95,15 +95,17 @@ export default function SwipeCard() {
         {/* Info Overlay */}
         {showInfoOverlay && (
           <div
-            className="absolute bottom-0 left-0 right-0 p-4"
+            className="absolute bottom-0 left-0 p-4"
             style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%)',
+              borderBottomLeftRadius: `${borderRadius}px`,
+              borderBottomRightRadius: `${borderRadius}px`,
             }}
           >
             <div className="text-white">
-              <p className="font-bold text-sm">IMG_{currentPhotoIndex.toString().padStart(4, '0')}.JPG</p>
-              <p className="text-xs opacity-80">
-                {month} {year} • {spaceSavedMB.toFixed(1)} MB
+              <p className="font-bold text-base">IMG_{currentPhotoIndex.toString().padStart(4, '0')}.HEIC</p>
+              <p className="text-sm opacity-90">
+                {month}/{year.length === 2 ? `20${year}` : year}
               </p>
             </div>
           </div>

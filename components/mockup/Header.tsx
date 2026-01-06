@@ -60,7 +60,7 @@ export default function Header() {
         style={{
           fontFamily: counter.fontFamily,
           fontSize: `${counter.fontSize}px`,
-          color: 'var(--color-text-primary)',
+          color: counter.color,
         }}
       >
         {counter.format(currentPhotoIndex, totalPhotos)}

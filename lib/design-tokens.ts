@@ -147,11 +147,23 @@ export const header = {
 
   title: {
     ...typography.header,
-    format: (month: string, year: string) => `${month.toUpperCase()} '${year}`,
+    format: (month: string, year: string) => {
+      // Convert abbreviated month to full name
+      const monthMap: { [key: string]: string } = {
+        'JAN': 'January', 'FEB': 'February', 'MAR': 'March',
+        'APR': 'April', 'MAY': 'May', 'JUN': 'June',
+        'JUL': 'July', 'AUG': 'August', 'SEP': 'September',
+        'OCT': 'October', 'NOV': 'November', 'DEC': 'December',
+      };
+      const fullMonth = monthMap[month.toUpperCase()] || month;
+      const fullYear = year.length === 2 ? `20${year}` : year;
+      return `${fullMonth} ${fullYear}`;
+    },
   },
 
   counter: {
     ...typography.header,
+    color: colors.primary, // Orange color for counter
     format: (current: number, total: number) => `${current}/${total}`,
   },
 } as const;
