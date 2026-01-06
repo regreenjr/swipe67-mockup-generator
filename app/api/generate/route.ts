@@ -63,6 +63,9 @@ export async function POST(request: NextRequest) {
 
     const previewUrl = `${baseUrl}/preview?${params.toString()}`;
 
+    // Configure Chromium for serverless (Vercel/Lambda)
+    chromiumPkg.setGraphicsMode = false;
+
     // Launch browser
     const browser = await chromium.launch({
       args: chromiumPkg.args,
