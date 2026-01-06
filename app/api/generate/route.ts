@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { chromium } from 'playwright';
+import { chromium } from 'playwright-core';
+import chromiumPkg from '@sparticuz/chromium';
 
 interface GenerateRequest {
   imageUrl: string;
@@ -64,7 +65,9 @@ export async function POST(request: NextRequest) {
 
     // Launch browser
     const browser = await chromium.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: chromiumPkg.args,
+      executablePath: await chromiumPkg.executablePath(),
+      headless: true,
     });
 
     const context = await browser.newContext({

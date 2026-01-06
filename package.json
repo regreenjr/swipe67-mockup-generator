@@ -6,13 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "playwright install chromium --with-deps"
+    "lint": "eslint"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^143.0.4",
     "html2canvas": "^1.4.1",
     "next": "16.1.1",
-    "playwright": "^1.57.0",
+    "playwright-core": "^1.57.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-dropzone": "^14.3.8",
