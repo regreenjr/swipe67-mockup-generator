@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -66,11 +65,15 @@ export async function POST(request: NextRequest) {
 
     const previewUrl = `${baseUrl}/preview?${params.toString()}`;
 
-    // Launch browser with serverless Chromium
+    // Launch browser
     const browser = await puppeteer.launch({
-      args: chromium.args,
-      executablePath: await chromium.executablePath(),
       headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+      ],
     });
 
     const page = await browser.newPage();
@@ -128,7 +131,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Rate limiting helper (optional)
+// Rate limiting helper
 const requestCounts = new Map<string, { count: number; resetAt: number }>();
 
 function checkRateLimit(ip: string): boolean {
@@ -136,12 +139,11 @@ function checkRateLimit(ip: string): boolean {
   const record = requestCounts.get(ip);
 
   if (!record || now > record.resetAt) {
-    requestCounts.set(ip, { count: 1, resetAt: now + 60000 }); // 1 minute window
+    requestCounts.set(ip, { count: 1, resetAt: now + 60000 });
     return true;
   }
 
   if (record.count >= 10) {
-    // 10 requests per minute
     return false;
   }
 
@@ -149,7 +151,7 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-// Clean up old rate limit records every 5 minutes
+// Clean up old rate limit records
 setInterval(() => {
   const now = Date.now();
   for (const [ip, record] of requestCounts.entries()) {
