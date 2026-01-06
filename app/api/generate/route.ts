@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
     const contentType = body.format === 'jpg' ? 'image/jpeg' : 'image/png';
     const filename = `swipe67-mockup-${Date.now()}.${body.format}`;
 
-    return new NextResponse(screenshot, {
+    return new NextResponse(new Uint8Array(screenshot), {
       status: 200,
       headers: {
         'Content-Type': contentType,

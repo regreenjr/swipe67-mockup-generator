@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MockupCanvas from '@/components/mockup/MockupCanvas';
 import { useMockupStore } from '@/store/mockup-store';
 
-export default function PreviewPage() {
+function PreviewContent() {
   const searchParams = useSearchParams();
   const store = useMockupStore();
 
@@ -49,5 +49,13 @@ export default function PreviewPage() {
     <div className="flex items-center justify-center min-h-screen bg-background-dark">
       <MockupCanvas />
     </div>
+  );
+}
+
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-background-dark">Loading...</div>}>
+      <PreviewContent />
+    </Suspense>
   );
 }
