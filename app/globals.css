@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  /* Swipe67 Design Tokens - Actual App Colors */
+  --color-keep: #7EF5B1;
+  --color-delete: #A683F0;
+  --color-share-bookmark: #E8AF96;
+  --color-background-dark: #0A0A0A;
+  --color-surface: #1A1A1A;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #888888;
+  --color-text-tertiary: #A3A3A3;
+  --color-primary: #FF6B35;
+  --color-completion-button: #A886F3;
+
+  /* Spacing */
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-xxl: 24px;
+  --spacing-xxxl: 32px;
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-xxl: 24px;
+  --radius-card: 26px;
+  --radius-full: 9999px;
+}
+
+@theme inline {
+  /* Colors */
+  --color-keep: var(--color-keep);
+  --color-delete: var(--color-delete);
+  --color-share-bookmark: var(--color-share-bookmark);
+  --color-background-dark: var(--color-background-dark);
+  --color-surface: var(--color-surface);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-primary: var(--color-primary);
+  --color-completion-button: var(--color-completion-button);
+
+  /* Spacing */
+  --spacing-xxs: var(--spacing-xxs);
+  --spacing-xs: var(--spacing-xs);
+  --spacing-sm: var(--spacing-sm);
+  --spacing-md: var(--spacing-md);
+  --spacing-lg: var(--spacing-lg);
+  --spacing-xl: var(--spacing-xl);
+  --spacing-xxl: var(--spacing-xxl);
+  --spacing-xxxl: var(--spacing-xxxl);
+
+  /* Border Radii */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-xxl: var(--radius-xxl);
+  --radius-card: var(--radius-card);
+  --radius-full: var(--radius-full);
+
+  /* Fonts */
+  --font-inter: var(--font-inter);
+  --font-jakarta: var(--font-jakarta);
+}
+
+body {
+  background: var(--color-background-dark);
+  color: var(--color-text-primary);
+  font-family: var(--font-jakarta), Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
