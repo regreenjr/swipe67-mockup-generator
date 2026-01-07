@@ -8,13 +8,12 @@ Generate customizable Swipe67 app mockup images for marketing and content creati
 
 ## 🚀 Live Demo
 
-**Web App:** [https://swipe67-mockup-generator.vercel.app](https://swipe67-mockup-generator.vercel.app)
+**Web App:** [https://swipe67-mockup-generator.vercel.app](https://swipe67-mockup-generator.vercel.app) ✅ **Fully Functional**
 
-**API Endpoint:** `POST https://swipe67-mockup-generator.vercel.app/api/generate`
+**API Endpoint:** ⚠️ **Not Available on Vercel** (see [API Limitations](#-api-limitations) below)
 
 ## ✨ Features
 
-### Web Interface
 - 🎨 **Real-time Preview** - See mockup changes instantly
 - 📸 **Image Upload** - Drag & drop or click to upload custom photos
 - 🎯 **UI State Switching** - Swipe View, Completion View, Progress Toast
@@ -24,12 +23,7 @@ Generate customizable Swipe67 app mockup images for marketing and content creati
 - 📐 **Multiple Presets** - iPhone Preview (393×852px) & Social Media (1080×1920px)
 - 🔧 **Resolution Options** - 1x, 2x, 3x export quality
 - 💾 **Export Formats** - PNG or JPG
-
-### API Endpoint
-- 🤖 **Batch Generation** - Programmatic mockup creation
-- 🖼️ **Server-side Rendering** - Uses Playwright for accurate screenshots
-- ⚡ **Rate Limited** - 10 requests per minute per IP
-- 📦 **Returns Images** - Direct PNG/JPG download
+- ✨ **Pixel-Perfect Design** - Matches actual Swipe67 app UI
 
 ## 🛠️ Tech Stack
 
@@ -37,9 +31,8 @@ Generate customizable Swipe67 app mockup images for marketing and content creati
 - **Language:** TypeScript 5.9.2
 - **Styling:** Tailwind CSS v4
 - **State Management:** Zustand with localStorage persistence
-- **Image Export:** html2canvas
+- **Image Export:** html2canvas for client-side generation
 - **File Upload:** react-dropzone
-- **API:** Playwright for server-side rendering
 - **Fonts:** Inter & Plus Jakarta Sans (Google Fonts)
 
 ## 📦 Installation
@@ -81,7 +74,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
    - Pick format (PNG or JPG)
 4. **Export** - Click "Export as Image" to download
 
-### API Endpoint
+### API Endpoint (Local Development & Self-Hosted Only)
+
+⚠️ **Note:** The API endpoint does not work on the Vercel deployment. See [API Limitations](#-api-limitations) for alternatives. The documentation below applies to local development and self-hosted deployments.
 
 **Endpoint:** `POST /api/generate`
 
@@ -302,15 +297,34 @@ npm start
 
 No environment variables required! The app works out of the box.
 
-## ⚠️ Rate Limits
+## ⚠️ API Limitations
 
-The API endpoint has rate limiting to prevent abuse:
+**The API endpoint is currently not functional on Vercel** due to serverless platform limitations:
 
-- **Limit:** 10 requests per minute per IP address
-- **Window:** 1 minute
-- **Response:** 429 Too Many Requests if exceeded
+- **Issue:** Vercel's serverless functions don't support Puppeteer/Chromium
+- **Reason:** 50MB size limit + missing system dependencies for headless browsers
+- **Web UI:** ✅ Fully functional - use the web interface for manual mockup generation
 
-For higher limits, consider self-hosting or contact for enterprise options.
+### Alternatives for Programmatic Generation
+
+If you need automated/batch mockup generation, consider these options:
+
+1. **Self-Host on Railway/Render** (Recommended)
+   - Deploy the same codebase to Railway or Render
+   - Full Docker support means Puppeteer works perfectly
+   - Free tier available
+   - API will work as documented
+
+2. **Use Screenshot API Services**
+   - Integrate ApiFlash, ScreenshotAPI, or Urlbox
+   - Point the service at your `/preview` route
+   - Costs ~$10-20/month for moderate usage
+
+3. **Local Development**
+   - The API works perfectly in local development
+   - Run `npm run dev` and use `http://localhost:3000/api/generate`
+
+The API route code remains in this repository for reference and self-hosting.
 
 ## 🤝 Contributing
 
